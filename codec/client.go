@@ -62,7 +62,7 @@ func (c *clientCodec) WriteRequest(r *rpc.Request, param interface{}) error {
 	h.ID = r.Seq
 	h.Method = r.ServiceMethod
 	h.RequestLen = uint32(len(compressedReqBody))
-	h.CompressType = compressor.CompressType(c.compressor)
+	h.CompressType = c.compressor
 	h.Checksum = crc32.ChecksumIEEE(compressedReqBody)
 
 	if err := sendFrame(c.writer, h.Marshal()); err != nil {
